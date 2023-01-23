@@ -1,0 +1,13 @@
+.changeset
+.github
+lib
+node_modules
+tests
+.eslintrc.js
+.gitignore
+.prettierrc
+CHANGELOG.md
+LICENSE
+index.ts
+tscconfig.json
+vitest.config.ts
