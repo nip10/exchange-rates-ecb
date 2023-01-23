@@ -1,5 +1,7 @@
 # Exchange Rates by ECB
 
+[![npm version](https://badge.fury.io/js/exchange-rates-ecb.svg)](https://badge.fury.io/js/exchange-rates-ecb)
+
 Retrieve Euro foreign exchange reference rates from the [European Central Bank](http://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html).
 
 This module is intended to run on the server via Node.js, not in the browser.
