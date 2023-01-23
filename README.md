@@ -110,10 +110,6 @@ console.log(`Amount in JPY: ${amount.jpy}`);
 
 Note: Default currency is EUR. If you want to convert to other currency, you need to specify the `amount` and `amountCurrency` options.
 
-## API
-
-// TODO
-
 ## FAQ
 
 ### Why are the rates not updated to the latest values ?
@@ -133,7 +129,7 @@ Set the `fullHistory` option to `true` to get the full history of rates.
 ```typescript
 import * as exchangeRates from 'exchange-rate-ecb';
 
-const data = await exchangeRates.getHistoy({
+const data = await exchangeRates.getHistory({
   fullHistory: true,
 });
 ```
