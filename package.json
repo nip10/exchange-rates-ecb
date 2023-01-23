@@ -16,10 +16,11 @@
   },
   "dependencies": {
     "fast-xml-parser": "^4.0.13",
-    "got": "^12.5.3"
+    "got": "^11.8.3"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
+    "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "@vitest/ui": "^0.27.2",
