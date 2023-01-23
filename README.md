@@ -8,6 +8,8 @@ This module is intended to run on the server via Node.js, not in the browser.
 
 The **current** currency list is available [here](http://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html). Note that historic data may contain currencies that are no longer available. For the full list of currencies check [this](https://github.com/nip10/exchange-rates-ecb/blob/main/lib/types.ts#L1).
 
+Supports ESM and CommonJS (require/import).
+
 ## Installation
 
 ```shell
