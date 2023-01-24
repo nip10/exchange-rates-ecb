@@ -1,5 +1,11 @@
 # exchange-rates-ecb
 
+## 1.0.3
+
+### Patch Changes
+
+- 4b18556: Update package metadata
+
 ## 1.0.2
 
 ### Patch Changes
