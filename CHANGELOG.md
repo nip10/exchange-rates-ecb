@@ -1,5 +1,11 @@
 # exchange-rates-ecb
 
+## 1.0.4
+
+### Patch Changes
+
+- 33d1f6d: Fix Date validation
+
 ## 1.0.3
 
 ### Patch Changes
