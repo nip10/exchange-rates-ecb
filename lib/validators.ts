@@ -22,8 +22,8 @@ export const validateDates = (startDate?: Date, endDate?: Date) => {
   if (startDate !== undefined && endDate !== undefined && startDate > endDate) {
     throw new Error('Start date must be before end date');
   }
-  if (endDate !== undefined && endDate > new Date()) {
-    throw new Error('End date must be in the past');
+  if (startDate !== undefined && startDate > new Date()) {
+    throw new Error('Start date must be in the past');
   }
 };
 
