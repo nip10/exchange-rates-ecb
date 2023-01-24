@@ -1,7 +1,7 @@
 {
   "name": "exchange-rates-ecb",
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Diogo Cardoso",
     "email": "hi@diogocardoso.dev"
