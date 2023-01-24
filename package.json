@@ -2,6 +2,18 @@
   "name": "exchange-rates-ecb",
   "license": "MIT",
   "version": "1.0.2",
+  "author": {
+    "name": "Diogo Cardoso",
+    "email": "hi@diogocardoso.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nip10/exchange-rates-ecb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nip10/exchange-rates-ecb/issues"
+  },
+  "homepage": "https://github.com/nip10/exchange-rates-ecb#readme",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
