@@ -11,4 +11,9 @@ export default defineConfig({
   },
   outDir: 'dist',
   clean: true,
+  outExtension({ format }) {
+    return {
+      js: format === 'cjs' ? '.cjs' : '.js',
+    };
+  },
 });

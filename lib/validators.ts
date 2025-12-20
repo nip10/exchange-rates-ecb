@@ -3,8 +3,11 @@ import { ExtraPair, supportedCurrencies, SupportedCurrency } from './types';
 import { isValidDate } from './utils';
 
 export const validateOpts = (opts: GetLatestOpts | GetHistoryOpts) => {
-  if ('start' in opts || 'end' in opts) {
-    validateDates(opts.start, opts.end);
+  if ('startDate' in opts || 'endDate' in opts) {
+    validateDates(
+      (opts as GetHistoryOpts).startDate,
+      (opts as GetHistoryOpts).endDate
+    );
   }
   validateCurrency(opts.currency);
   validateExtraPairs(opts.extraPairs);
