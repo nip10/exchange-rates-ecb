@@ -1,7 +1,7 @@
 {
   "name": "exchange-rates-ecb",
   "license": "MIT",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "type": "module",
   "description": "Utility package to fetch exchange rates from the ECB",
   "keywords": [
