@@ -35,6 +35,7 @@ export interface BaseOpts {
   amount?: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface GetLatestOpts extends BaseOpts {}
 
 /**

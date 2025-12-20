@@ -1,5 +1,5 @@
 import type { GetHistoryOpts, GetLatestOpts } from '.';
-import type { EcbExchangeRates, ExchangeRatesDay, CalculatedExtraPair } from './types';
+import type { EcbExchangeRates, ExchangeRatesDay } from './types';
 
 const transform = (
   data: ExchangeRatesDay[],

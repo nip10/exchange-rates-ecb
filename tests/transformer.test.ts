@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+ 
 import transform from '../lib/transformer';
 import { expect, describe, it } from 'vitest';
 import { supportedCurrencies, SupportedCurrency } from '../lib/types';

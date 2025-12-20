@@ -31,48 +31,48 @@ describe('validateDates', () => {
   });
 
   it('should throw if dates are invalid', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates('foo', today)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(123, today)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(Number.NaN, today)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+     
     expect(() => validateDates(() => {}, today)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates([123], today)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(false, today)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(null, today)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(today, '')).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(today, 123)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(today, Number.NaN)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+     
     expect(() => validateDates(today, () => {})).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(today, [123])).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(today, false)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateDates(today, null)).toThrow();
   });
@@ -97,13 +97,13 @@ describe('validateCurrency', () => {
   });
 
   it("should throw if currency isn't supported", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateCurrency('EUR')).toThrow();
   });
 
   it("should throw if currencies aren't supported", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateCurrency(['USD', 'EUR'])).toThrow();
   });
@@ -130,7 +130,7 @@ describe('validateExtraPairs', () => {
   });
 
   it("should throw if currency pair isn't supported", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateExtraPairs([{ from: 'EUR', to: 'GBP' }])).toThrow();
   });
@@ -139,7 +139,7 @@ describe('validateExtraPairs', () => {
     expect(() =>
       validateExtraPairs([
         { from: 'USD', to: 'GBP' },
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+         
         // @ts-expect-error - should throw
         { from: 'USD', to: 'EUR' },
       ])
@@ -159,24 +159,24 @@ describe('validateAmount', () => {
   });
 
   it('should throw if amount is not a number', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateAmount('Foo')).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateAmount(true)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateAmount(null)).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateAmount({})).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
     expect(() => validateAmount([])).toThrow();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-expect-error - should throw
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+     
     expect(() => validateAmount(() => {})).toThrow();
   });
 });

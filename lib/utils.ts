@@ -21,9 +21,8 @@
 export const isValidDate = (date: unknown): date is Date => {
   return (
     Object.prototype.toString.call(date) === '[object Date]' &&
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    !Number.isNaN(date as any) &&
+    !Number.isNaN(date as Date) &&
     // handle NULL date objects
-    !Number.isNaN((date as any).valueOf())
+    !Number.isNaN((date as Date).valueOf())
   );
 };
