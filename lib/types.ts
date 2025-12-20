@@ -58,11 +58,19 @@ export interface EcbExchangeRatesDay {
 export interface ExchangeRatesDay {
   date: Date;
   rates: EcbExchangeRates;
+  extraPairs?: CalculatedExtraPair[];
+  convertedAmounts?: Partial<EcbExchangeRates>;
 }
 
 export interface ExtraPair {
   from: SupportedCurrency;
   to: SupportedCurrency;
+}
+
+export interface CalculatedExtraPair {
+  from: SupportedCurrency;
+  to: SupportedCurrency;
+  rate: number;
 }
 
 export interface EcbXmlExchangeRatesDay {

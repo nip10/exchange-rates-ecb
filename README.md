@@ -29,7 +29,7 @@ $ pnpm install exchange-rate-ecb
 ```typescript
 import * as exchangeRates from 'exchange-rate-ecb';
 
-const { date, rates } = await exchangeRates.getLatest();
+const [{ date, rates }] = await exchangeRates.getLatest();
 
 console.log(`Date: ${date}`);
 console.log(`Rates: ${rates}`);
@@ -42,8 +42,8 @@ Note: Use the `date` property to determine when the rates were last updated.
 ```typescript
 import * as exchangeRates from 'exchange-rate-ecb';
 
-const { date, rates } = await exchangeRates.getLatest({
-  currencies: ['USD', 'JPY'],
+const [{ date, rates }] = await exchangeRates.getLatest({
+  currency: ['USD', 'JPY'],
 });
 
 console.log(`USD: ${rates.USD}`);
@@ -62,53 +62,159 @@ console.log(`USD: ${data[0].rates.USD}`);
 
 Note: This will fetch the latest 90 days of rates by default.
 
-### Fetch historic rates for a specific currency
+### Fetch historic rates for a specific date range
 
 ```typescript
 import * as exchangeRates from 'exchange-rate-ecb';
 
 const data = await exchangeRates.getHistory({
-  from: new Date('2023-01-01'),
-  currencies: ['USD'],
+  startDate: new Date('2023-01-01'),
+  endDate: new Date('2023-01-31'),
+  currency: ['USD'],
 });
 
 console.log(`USD: ${data[0].rates.USD}`);
 ```
 
-### Calculate extra pairs (WIP)
+### Calculate cross-currency rates
 
 ```typescript
 import * as exchangeRates from 'exchange-rate-ecb';
 
-const { date, rates, extraPairs } = await exchangeRates.getLatest({
+const [{ date, rates, extraPairs }] = await exchangeRates.getLatest({
   extraPairs: [
-    {
-      from: 'SEK',
-      to: 'USD',
-    },
+    { from: 'SEK', to: 'USD' },
+    { from: 'NOK', to: 'GBP' },
   ],
 });
 
-console.log(`ExtraPairs - From: ${extraPairs[0].from} - To: ${extraPairs[0].to} - Rate: ${extraPairs[0].rate`);
+console.log(`SEK/USD: ${extraPairs[0].rate}`);
+console.log(`NOK/GBP: ${extraPairs[1].rate}`);
 ```
 
-Note: The extra pairs are calculated from the available rates based on the formula `rate = rate(from) / rate(to)`. These are not official rates.
+Note: Cross-currency rates are calculated using the formula `rate = rates[from] / rates[to]`. These are calculated rates, not official ECB rates.
 
-### Convert amount to other currencies (WIP)
+### Convert EUR amounts to other currencies
 
 ```typescript
 import * as exchangeRates from 'exchange-rate-ecb';
 
-const { date, rates, amount } = await exchangeRates.getLatest({
-  currencies: ['USD', 'JPY'],
+const [{ date, rates, convertedAmounts }] = await exchangeRates.getLatest({
+  currency: ['USD', 'GBP', 'JPY'],
   amount: 1000,
 });
 
-console.log(`Amount in USD: ${ammount.usd}`);
-console.log(`Amount in JPY: ${amount.jpy}`);
+console.log(`1000 EUR = ${convertedAmounts.USD} USD`);
+console.log(`1000 EUR = ${convertedAmounts.GBP} GBP`);
+console.log(`1000 EUR = ${convertedAmounts.JPY} JPY`);
 ```
 
-Note: Default currency is EUR. If you want to convert to other currency, you need to specify the `amount` and `amountCurrency` options.
+## API Reference
+
+### `getLatest(options?)`
+
+Fetches the latest exchange rates from the European Central Bank.
+
+**Options:**
+- `currency?: string | string[]` - Single currency code or array of codes to filter results (e.g., 'USD' or ['USD', 'GBP'])
+- `extraPairs?: Array<{ from: string, to: string }>` - Calculate cross-currency rates (e.g., SEK/USD from SEK/EUR and USD/EUR)
+- `amount?: number` - Amount in EUR to convert to other currencies
+
+**Returns:** `Promise<ExchangeRatesDay[]>` - Array with single day of exchange rates
+
+Each `ExchangeRatesDay` contains:
+- `date: Date` - The date for these rates
+- `rates: Record<string, number>` - Exchange rates for currencies
+- `extraPairs?: Array<{ from: string, to: string, rate: number }>` - Calculated cross-currency rates (if requested)
+- `convertedAmounts?: Record<string, number>` - Converted amounts (if requested)
+
+**Throws:**
+- Error if currency is not supported
+- Error if network request fails or times out
+- Error if XML parsing fails
+- Error if currency in extraPairs is not found
+
+**Example:**
+```typescript
+const [{ date, rates }] = await exchangeRates.getLatest({ currency: 'USD' });
+
+// With all features
+const [result] = await exchangeRates.getLatest({
+  currency: ['USD', 'GBP'],
+  extraPairs: [{ from: 'SEK', to: 'USD' }],
+  amount: 1000
+});
+console.log(result.extraPairs[0].rate); // SEK/USD rate
+console.log(result.convertedAmounts.USD); // 1000 EUR in USD
+```
+
+### `getHistory(options?)`
+
+Fetches historical exchange rates from the European Central Bank.
+
+**Options:**
+- `currency?: string | string[]` - Single currency code or array of codes to filter results
+- `startDate?: Date` - Earliest date to include (default: 90 days ago)
+- `endDate?: Date` - Latest date to include (default: today)
+- `fullHistory?: boolean` - If true, fetches all rates since 1999 (~7MB, may take 1-2 seconds)
+- `extraPairs?: Array<{ from: string, to: string }>` - Calculate cross-currency rates
+- `amount?: number` - Amount in EUR to convert to other currencies
+
+**Returns:** `Promise<ExchangeRatesDay[]>` - Array of exchange rates, one entry per day
+
+**Throws:**
+- Error if startDate is after endDate
+- Error if startDate is in the future
+- Error if currency is not supported
+- Error if network request fails or times out
+- Error if XML parsing fails
+- Error if currency in extraPairs is not found
+
+**Example:**
+```typescript
+const history = await exchangeRates.getHistory({
+  startDate: new Date('2024-01-01'),
+  endDate: new Date('2024-01-31'),
+  currency: ['USD', 'GBP'],
+  extraPairs: [{ from: 'SEK', to: 'NOK' }],
+  amount: 500
+});
+
+// Each day has rates, extraPairs, and convertedAmounts
+history.forEach(day => {
+  console.log(`${day.date}: USD=${day.rates.USD}`);
+  console.log(`SEK/NOK: ${day.extraPairs[0].rate}`);
+  console.log(`500 EUR = ${day.convertedAmounts.USD} USD`);
+});
+```
+
+## Error Handling
+
+The library throws descriptive errors for common scenarios:
+
+**Network Errors:**
+- `ECB exchange rate data not found (404)` - API endpoint not found
+- `ECB API server error (500/503)` - ECB server errors
+- `Failed to fetch latest exchange rates` - Network connection errors
+
+**Validation Errors:**
+- `Currency XXX is not supported` - Invalid or unsupported currency code
+- `Start date must be in the past` - Future date provided as startDate
+- `Start date must be before end date` - Invalid date range
+
+**Parsing Errors:**
+- `Failed to parse exchange rate XML` - Malformed XML from ECB
+- `Invalid ECB XML structure` - Missing required XML elements
+- `Invalid date in ECB data` - Invalid date format in XML
+
+**Example:**
+```typescript
+try {
+  const data = await exchangeRates.getLatest({ currency: 'INVALID' });
+} catch (error) {
+  console.error(error.message); // "Currency INVALID is not supported"
+}
+```
 
 ## FAQ
 

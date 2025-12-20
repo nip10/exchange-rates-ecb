@@ -15,7 +15,7 @@ describe('isValidDate', () => {
     expect(isValidDate([])).toBe(false);
     expect(isValidDate(null)).toBe(false);
     expect(isValidDate(undefined)).toBe(false);
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+     
     expect(isValidDate(() => {})).toBe(false);
     expect(isValidDate(new Date('INVALID_DATE'))).toBe(false);
     expect(isValidDate(Number.NaN)).toBe(false);
