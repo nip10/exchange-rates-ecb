@@ -1,5 +1,8 @@
 import got from 'got';
 
+// Version is injected at build time by tsup
+declare const __PACKAGE_VERSION__: string;
+
 export const fetchLatest = async (): Promise<string> => {
   try {
     const response = await got(
@@ -14,7 +17,7 @@ export const fetchLatest = async (): Promise<string> => {
           statusCodes: [408, 413, 429, 500, 502, 503, 504],
         },
         headers: {
-          'User-Agent': 'exchange-rates-ecb/1.0.4',
+          'User-Agent': `exchange-rates-ecb/${__PACKAGE_VERSION__}`,
         },
       }
     ).text();
@@ -53,7 +56,7 @@ export const fetchHistory = async (): Promise<string> => {
           statusCodes: [408, 413, 429, 500, 502, 503, 504],
         },
         headers: {
-          'User-Agent': 'exchange-rates-ecb/1.0.4',
+          'User-Agent': `exchange-rates-ecb/${__PACKAGE_VERSION__}`,
         },
       }
     ).text();
@@ -92,7 +95,7 @@ export const fetchAll = async (): Promise<string> => {
           statusCodes: [408, 413, 429, 500, 502, 503, 504],
         },
         headers: {
-          'User-Agent': 'exchange-rates-ecb/1.0.4',
+          'User-Agent': `exchange-rates-ecb/${__PACKAGE_VERSION__}`,
         },
       }
     ).text();
